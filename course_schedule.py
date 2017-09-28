@@ -7,9 +7,14 @@ import datetime
 # def main():
 # 	nntime = datetime.datetime.now()
 # 	nnweek = nntime.isoweekday()
-# 	result = get_next_course(nnweek, nntime, '/home/dash/Documents/dash_courses.xlsx')
-# 	print(result)
+# 	results = get_day_courses(nnweek, '/home/dash/Documents/dash_courses.xlsx')
+# 	if isinstance(results, str):
+# 		print(results)
+# 	else:
+# 		for result in results:
+# 			print(result.value)
 
+# 得到下一节课的内容
 def get_next_course(nnweek, nntime, schedule_file):
 	# 操作 Excel 表格
 	wb = opxl.load_workbook(schedule_file)
@@ -32,6 +37,20 @@ def get_next_course(nnweek, nntime, schedule_file):
 				nnweek = 1
 	course_name = st0.cell(row=line, column=nnweek+1).value
 	return course_name
+
+# 得到一天的课程内容
+def get_day_courses(nnweek, schedule_file):
+	# 先判断是否有课，没课则直接返回
+	if nnweek>5 and nnweek<=7:
+		return ("当天没课，好好规划时间")
+	# 操作 Excel 表格
+	wb = opxl.load_workbook(schedule_file)
+	sheetnames = wb.get_sheet_names()
+	st0 = wb.get_sheet_by_name(sheetnames[0])
+	# 得到该天在 Excel 中的所在列
+	day_need = chr(nnweek+ord('A'))
+	col_need = st0[day_need]
+	return col_need
 
 # 计算下节课是周几
 def cal_weekday(nnweek, nntime):

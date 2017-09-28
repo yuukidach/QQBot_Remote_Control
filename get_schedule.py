@@ -21,6 +21,24 @@ def onQQMessage(bot, contact, memeber, content):
             nnweek = nntime.isoweekday()
             result = get_next_course(nnweek, nntime, '/home/dash/Documents/dash_courses.xlsx')
             bot.SendTo(contact, result)
+        elif content == "今天的课":
+            nntime = datetime.datetime.now()
+            nnweek = nntime.isoweekday()
+            results = get_day_courses(nnweek, '/home/dash/Documents/dash_courses.xlsx')
+            if isinstance(results, str):
+         		print(results)
+         	else:
+            	for result in results:
+                    bot.SendTo(contact, result)
+        elif content == "明天的课":
+            nntime = datetime.datetime.now()
+            nnweek = nntime.isoweekday()
+            results = get_day_courses(nnweek+1, '/home/dash/Documents/dash_courses.xlsx')
+            if isinstance(results, str):
+         		print(results)
+         	else:
+            	for result in results:
+                    bot.SendTo(contact, result)
         elif content == "好的":
             username = ''
-            bot.SendTo(contact, 'Glad to serve you!   :D')
+            bot.SendTo(contact, 'Glad to serve you!   :D)
