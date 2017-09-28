@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import datetime
-from course_schedule import get_next_course
+import datetime, time
+from course_schedule import get_next_course, get_day_courses
 
 username = ''
 
@@ -29,7 +29,8 @@ def onQQMessage(bot, contact, memeber, content):
 				bot.SendTo(contact, results)
 			else:
 				for result in results:
-					bot.SendTo(contact, result)
+					bot.SendTo(contact, result.value)
+					time.sleep(0.0001)
 		elif content == "明天的课":
 			nntime = datetime.datetime.now()
 			nnweek = nntime.isoweekday()
@@ -38,7 +39,8 @@ def onQQMessage(bot, contact, memeber, content):
 				bot.SendTo(contact, results)
 			else:
 				for result in results:
-					bot.SendTo(contact, result)
+					bot.SendTo(contact, result.value)
+					time.sleep(0.0001)
 		elif content == "好的":
 			username = ''
 			bot.SendTo(contact, 'Glad to serve you!   :D')
