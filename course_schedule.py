@@ -7,7 +7,7 @@ import datetime
 # def main():
 # 	nntime = datetime.datetime.now()
 # 	nnweek = nntime.isoweekday()
-# 	results = get_day_courses(nnweek, '/home/dash/Documents/dash_courses.xlsx')
+# 	results = get_day_courses(nnweek+1, '/home/dash/Documents/dash_courses.xlsx')
 # 	if isinstance(results, str):
 # 		print(results)
 # 	else:
@@ -43,6 +43,8 @@ def get_day_courses(nnweek, schedule_file):
 	# 先判断是否有课，没课则直接返回
 	if nnweek>5 and nnweek<=7:
 		return ("当天没课，好好规划时间")
+	elif nnweek > 7:
+		nnweek = 1
 	# 操作 Excel 表格
 	wb = opxl.load_workbook(schedule_file)
 	sheetnames = wb.get_sheet_names()
